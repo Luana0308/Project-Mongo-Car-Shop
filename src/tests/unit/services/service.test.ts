@@ -46,5 +46,12 @@ describe('Car Service', () => {
 		});
     });
 
+    describe('update a car', () => {
+		it('successfully update a car', async () => {
+			const carChanged = await carService.update("62fd3403e8f068104275d3ec", carMockBodyUpdate);
+			expect(carChanged).to.be.deep.equal(carMockResponseUpdate);
+		});
+	});
+
 
 });
