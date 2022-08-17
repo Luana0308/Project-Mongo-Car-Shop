@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { IService } from '../interfaces/IService';
 import { ICar } from '../interfaces/ICar';
+// import { ErrorTypes } from '../erros/catalog';
 
 export default class CarController {
   constructor(private _service: IService<ICar>) { }
@@ -19,10 +20,14 @@ export default class CarController {
     return res.status(200).json(results);
   }
 
-  public async readOne(req: Request, res: Response<ICar>) {
-    const result = await this._service.readOne(req.params.id);
-    if (!result) throw new Error('é null deu erro');
-    return res.status(200).json(result);
+  public async readOne(req: Request, res: Response<ICar>, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const result = await this._service.readOne(id);
+      if (result) { return res.status(200).json(result); }
+    } catch (error) {
+      return next(error);
+    }
   }
 
   public async update(req: Request, res: Response<ICar | null>) {

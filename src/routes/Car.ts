@@ -11,9 +11,12 @@ const newCarController = new CarController(newCarService);
 
 route.post('/cars', (req, res, next) => (newCarController
   .create(req, res, next)));
+
+route.get('/cars/:id', (req, res, next) => newCarController
+  .readOne(req, res, next));
+
 route.get('/cars', (req, res) => newCarController.read(req, res));
-route.get('cars/:id', (req, res) => newCarController.readOne(req, res));
-route.put('cars/:id', (req, res) => newCarController.update(req, res));
-route.delete('cars/:id', (req, res) => newCarController.delete(req, res));
+route.put('/cars/:id', (req, res) => newCarController.update(req, res));
+route.delete('/cars/:id', (req, res) => newCarController.delete(req, res));
 
 export default route; 
