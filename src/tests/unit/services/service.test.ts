@@ -19,6 +19,7 @@ describe('Car Service', () => {
         sinon.stub(carModel, 'read').resolves(allCarsMockWithId);
         sinon.stub(carModel, 'readOne').resolves(carMockWithId);
         sinon.stub(carModel, 'update').resolves(carMockResponseUpdate);
+        sinon.stub(carModel, 'delete').resolves(carMockResponseUpdate);
 
 	})
 	after(() => {
@@ -49,6 +50,13 @@ describe('Car Service', () => {
     describe('update a car', () => {
 		it('successfully update a car', async () => {
 			const carChanged = await carService.update("62fd3403e8f068104275d3ec", carMockBodyUpdate);
+			expect(carChanged).to.be.deep.equal(carMockResponseUpdate);
+		});
+	});
+
+    describe('delete a car', () => {
+		it('successfully delete a car', async () => {
+			const carChanged = await carService.delete("62fd3403e8f068104275d3ec");
 			expect(carChanged).to.be.deep.equal(carMockResponseUpdate);
 		});
 	});
