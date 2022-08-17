@@ -33,11 +33,14 @@ class CarService implements IService<ICar> {
   }
 
   public async update(_id:string, obj:ICar):Promise<ICar | null> {
-    // const parsed = CarZodSchema.safeParse(obj);
-    // if (!parsed.success) {
-    //   throw parsed.error;
-    // }
-    await this.readOne(_id);
+    if (_id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+
+    const parsed = CarZodSchema.safeParse(obj);
+    if (!parsed.success) { throw parsed.error; }
+
+    const carId = await this.readOne(_id);
+    if (!carId) throw new Error(ErrorTypes.CarNotFound);
+    
     return this._car.update(_id, obj);
   }
 

@@ -30,9 +30,17 @@ export default class CarController {
     }
   }
 
-  public async update(req: Request, res: Response<ICar | null>) {
-    const result = await this._service.update(req.params.id, req.body);
-    return res.status(201).json(result);
+  public async update(
+    req: Request, 
+    res: Response<ICar | null>, 
+    next: NextFunction,
+  ) {
+    try {
+      const result = await this._service.update(req.params.id, req.body);
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
   }
 
   public async delete(req: Request, res: Response<ICar | null>) {
