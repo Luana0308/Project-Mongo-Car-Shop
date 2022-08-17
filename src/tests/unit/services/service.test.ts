@@ -16,6 +16,7 @@ describe('Car Service', () => {
 
 	before(() => {
 		sinon.stub(carModel, 'create').resolves(carMockWithId);
+        sinon.stub(carModel, 'read').resolves(allCarsMockWithId);
 
 	})
 	after(() => {
@@ -27,6 +28,13 @@ describe('Car Service', () => {
 
 			expect(carCreated).to.be.deep.equal(carMockWithId);
 		});
+	});
 
+    describe('Read All Cars', () => {
+		it('Success find all cars', async () => {
+			const cars = await carService.read();
+
+			expect(cars).to.be.deep.equal(allCarsMockWithId);
+		});
 	});
 });
