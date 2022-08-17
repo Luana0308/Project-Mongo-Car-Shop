@@ -2,7 +2,7 @@ import { model as mongooseCreateModel, Schema } from 'mongoose';
 import { ICar } from '../interfaces/ICar';
 import MongoModel from './MongoModel';
 
-const frameMongooseSchema = new Schema<ICar>({
+const CarMongooseSchema = new Schema<ICar>({
   model: String,
   year: Number,
   color: String,
@@ -13,7 +13,7 @@ const frameMongooseSchema = new Schema<ICar>({
 }, { versionKey: false });
 
 class CarModel extends MongoModel<ICar> {
-  constructor(model = mongooseCreateModel('Car', frameMongooseSchema)) {
+  constructor(model = mongooseCreateModel('Car', CarMongooseSchema)) {
     super(model);
   }
 }
