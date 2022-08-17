@@ -40,12 +40,16 @@ class CarService implements IService<ICar> {
 
     const carId = await this.readOne(_id);
     if (!carId) throw new Error(ErrorTypes.CarNotFound);
-    
+
     return this._car.update(_id, obj);
   }
 
   public async delete(_id:string):Promise<ICar | null> {
-    await this.readOne(_id);
+    if (_id.length < 24) throw new Error(ErrorTypes.InvalidMongoId);
+
+    const carId = await this.readOne(_id);
+    if (!carId) throw new Error(ErrorTypes.CarNotFound);
+
     return this._car.delete(_id);
   }
 }

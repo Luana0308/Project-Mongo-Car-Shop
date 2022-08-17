@@ -20,6 +20,7 @@ route.get('/cars/:id', (req, res, next) => newCarController
 route.put('/cars/:id', (req, res, next) => newCarController
   .update(req, res, next));
 
-route.delete('/cars/:id', (req, res) => newCarController.delete(req, res));
+route.delete('/cars/:id', (req, res, next) => newCarController
+  .delete(req, res, next));
 
 export default route; 
